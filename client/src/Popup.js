@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './App.css';
-import { Button, HStack, Card, Select } from '@chakra-ui/react';
+import { Button, HStack, Card, Select, VStack} from '@chakra-ui/react';
 
 const Popup = () => {
   const [selectedText, setSelectedText] = useState('');
@@ -112,12 +112,13 @@ const Popup = () => {
     <Card padding="20px" background="#FFFFEA">
       <h1>Selected Text:</h1>
       <p>{selectedText}</p>
+      <VStack>
       <HStack align='center'>
         <Button colorScheme='green' onClick={getDef}>{selectedText.length > 10 ? "Summarize" : "Lookup"}</Button>
         <Button colorScheme='green' onClick={getTranslation}>Translate</Button>
       </HStack>
-      <div padding-top="3px">
-          <Select color='green' width='120px' placeholder='Translate' value={lang} onChange={handleLang}>
+      <div>
+          <Select color='green' align='center' width='120px' placeholder='Languages' value={lang} onChange={handleLang}>
             <option value='en'>English</option>
             <option value='es'>Spanish</option>
             <option value='fr'>French</option>
@@ -130,6 +131,7 @@ const Popup = () => {
             <option value='ko'>Korean</option>
           </Select>
       </div>
+      </VStack>
       <p>{response}</p>
       <p>
       {console.log(able)}
