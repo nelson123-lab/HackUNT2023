@@ -8,7 +8,7 @@ import { Button, Tabs, TabPanels, TabPanel, Tab, TabList} from '@chakra-ui/react
 const Chat = () => {
   return (
     <div style={{ padding: '20px' }}>
-      <Tabs>
+      <Tabs colorScheme='green'>
         <TabList>
             <Tab>Chat with Website</Tab>
             <Tab>Chat with GPT</Tab>

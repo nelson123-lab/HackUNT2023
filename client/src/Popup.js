@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './App.css';
-import { Button, HStack} from '@chakra-ui/react';
+import { Button, HStack, Card} from '@chakra-ui/react';
 
 const Popup = () => {
   const [selectedText, setSelectedText] = useState('');
@@ -90,7 +90,7 @@ const Popup = () => {
     setResponse(temp_response.data.response)
   }
   return (
-    <div style={{ padding: '20px' }}>
+    <Card padding="20px" background="#FFFFEA">
       <h1>Selected Text:</h1>
       <p>{selectedText}</p>
       <HStack align='center'>
@@ -99,7 +99,7 @@ const Popup = () => {
       </HStack>
       
       <p>{response}</p>
-    </div>
+    </Card>
   );
 };
 
