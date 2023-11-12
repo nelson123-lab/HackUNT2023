@@ -1,15 +1,7 @@
-import React, { useEffect } from 'react'
+import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  let messageURL;
-  useEffect(() => {
-    // Add event listener to listen for messages from the background script
-    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-      messageURL = message.currentURL
-    })});
-
-
   return (
     <div className="App">
       <header className="App-header">
