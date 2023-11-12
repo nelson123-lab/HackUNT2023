@@ -1,34 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
-
 .App {
+  text-align: center;
   width: 350px;
-  height: 500px;
-  background:#ffffff;
-  /* border: 1px solid black; */
-  font-family: 'Roboto';
+  height: 700px;
+  background:#FDFDFD;
 }
 
-p{
-  padding: 3%;
-  font-size: 80%;
-  justify-content: center;
-}
-
-.instructions {
-  padding: 3%;
-}
-.appname {
-  padding-top: 7%;
-  padding-left: 3%;
-  font-size: 150%;
-  font-weight: 550;
-}
-
-.adddeck {
-  align-items: center;
-  padding: 5%;
-}
 
 .App-logo {
     pointer-events: none;
@@ -41,13 +17,14 @@ p{
 }
 
 .App-header {
-  background-color: f0f0f0;
+  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: black;
-  border: 5px;
+  color: white;
 }
 
 .App-link {
