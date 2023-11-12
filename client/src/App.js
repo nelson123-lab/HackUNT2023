@@ -2,6 +2,7 @@ import { ChakraProvider, Input } from '@chakra-ui/react';
 import { Button, Stack } from '@chakra-ui/react';
 import { PlusSquareIcon, EditIcon } from '@chakra-ui/icons';
 import React, { useState } from 'react';
+import React, { useEffect } from 'react'
 import './App.css';
 
 function App() {
@@ -43,6 +44,14 @@ function App() {
     // Handle creating a new deck (if needed)
     // For now, you can leave it empty or add any specific logic
   };
+
+  let messageURL;
+  useEffect(() => {
+    // Add event listener to listen for messages from the background script
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+      messageURL = message.currentURL
+    })});
+
 
   return (
     <ChakraProvider>

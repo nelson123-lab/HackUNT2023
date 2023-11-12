@@ -7,9 +7,18 @@
     "default_popup": "index.html",
     "default_title": "Open"
   },
-  "permissions": ["scripting"],
+  "permissions": ["scripting", "activeTab"],
   "host_permissions": [
     "http://*/",
     "https://*/"
-  ]
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
 }
