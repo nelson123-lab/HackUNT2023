@@ -43,27 +43,19 @@ def get_conversation_chain(vectorstore):
     )
     return conversation_chain
 
-# To handle the user input and response for continuous chat.
 
-def chatWebsite(url, user_question):
+def VectorizationURL(url):
     raw_text = webScrapper(url)
     text_chunks = get_text_chunks(raw_text)
     vectorstore = get_vectorstore(text_chunks)
     conversation = get_conversation_chain(vectorstore)
+    return conversation
 
-    while True:
-        # user_question = input("Chat with Website? (Enter 'stop' to end the chat): ")
-        if user_question.lower() == "stop":
-            break
-
-        response = conversation({'question': user_question})
-        chat_history = response['chat_history']
-
-        for i, message in enumerate(chat_history[-2:]):
-            if i % 2 == 0:
-                pass
-            else:
-                print("Bot: " + message.content)
-
-# url = "https://medium.com/@johnidouglasmarangon/how-to-summarize-text-with-openai-and-langchain-e038fc922af"
-# chatWebsite(url, user_question= input())
+def ChatWebsite(conversation, user_question):
+    response = conversation({'question': user_question})
+    chat_history = response['chat_history']
+    for i, message in enumerate(chat_history[-2:]):
+        if i % 2 == 0:
+            pass
+        else:
+            return message.content                                                               

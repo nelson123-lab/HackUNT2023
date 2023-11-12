@@ -9,7 +9,7 @@ class ChatApp:
         # Setting the API key to use the OpenAI API
         openai.api_key = os.getenv("OPENAI_API_KEY")
         self.messages = [
-            {"role": "system", "content": "You are a coding tutor bot to help user write and optimize python code."},
+            {"role": "system", "content": "You are an assistant dedicated to reply to the user in maximum of 100 words limit."},
         ]
 
     def chat(self, message):
@@ -20,13 +20,4 @@ class ChatApp:
         )
         self.messages.append({"role": "assistant", "content": response["choices"][0]["message"].content})
         return response["choices"][0]["message"]
-    
-chat_app = ChatApp()
 
-# Start the conversation
-#while True:
- #   user_input = input("User: ")
-  #  if user_input.lower() == "stop":
-   #     break
-    #assistant_response = chat_app.chat(user_input)
-    #print("Assistant:", assistant_response['content'])

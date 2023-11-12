@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from Text_summarization import Summarization
 from Word_meanings import word_meaning
 from translator import language_translation
-from Chat_with_website import chatWebsite
+from Chat_with_website import VectorizationURL, ChatWebsite
 from Chat_with_GPT import ChatApp
 from txt_to_speech import T_T_speech
 
@@ -39,7 +39,9 @@ def webchat():
     data = request.get_json()
     message = data.get('text')
     url = data.get('webLink')
-    return jsonify({"response": "Automated Message from chat with document goes here"})
+    conversation = VectorizationURL(url)
+    response = ChatWebsite(conversation, message)
+    return jsonify({"response": response})
 
 @app.route("/gptchat", methods =['POST'])
 def gptchat():
