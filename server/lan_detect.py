@@ -1,7 +1,5 @@
 from langdetect import detect
 
-
-    
 text = "你好我是尼尔森"
 language = detect(text)
 print("Detected language:", language)
