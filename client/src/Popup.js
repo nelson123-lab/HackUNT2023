@@ -1,10 +1,12 @@
 // src/Popup.js
 /* global chrome */
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'
+import './App.css';
 
 const Popup = () => {
   const [selectedText, setSelectedText] = useState('');
-
+  const [response, setResponse] = useState('') 
   const handleSelection = () => {
     //test
     let tab1
@@ -55,10 +57,21 @@ const Popup = () => {
     };
   }, []); // Empty dependency array to run this effect only once
 
+  const getDef = async(e) => {
+    e.preventDefault()
+    console.log("Get definition called")
+    let temp_response = await axios.post('http://localhost:5000/gpt', {
+      word: selectedText
+    })
+    console.log(temp_response)
+    setResponse(temp_response)
+  }
   return (
     <div style={{ padding: '20px' }}>
       <h1>Selected Text:</h1>
       <p>{selectedText}</p>
+      <button className="buttons" onClick={getDef}>Lookup</button>
+      <p>{response}</p>
     </div>
   );
 };

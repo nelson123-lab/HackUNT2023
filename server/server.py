@@ -10,5 +10,11 @@ CORS(app)
 def members():
     return {"members": ["Member1", "Member2", "Member3"]}
 
+@app.route("/definition", methods=['POST'])
+def definition():
+    data = request.get_json()
+    user_word = data.get('word')
+    return jsonify({"response": "This is your word " + user_word})
+
 if __name__ == "__main__":
     app.run(debug = True)
