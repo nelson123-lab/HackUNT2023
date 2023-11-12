@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './App.css';
-import { Button } from '@chakra-ui/react';
+import { Button, HStack} from '@chakra-ui/react';
 
 const Popup = () => {
   const [selectedText, setSelectedText] = useState('');
@@ -93,8 +93,11 @@ const Popup = () => {
     <div style={{ padding: '20px' }}>
       <h1>Selected Text:</h1>
       <p>{selectedText}</p>
-      <Button colorScheme='green' onClick={getDef}>{selectedText.length > 10 ? "Summarize" : "Lookup"}</Button>
-      <Button colorScheme='green' onClick={getTranslation}>Translate</Button>
+      <HStack align='center'>
+        <Button colorScheme='green' onClick={getDef}>{selectedText.length > 10 ? "Summarize" : "Lookup"}</Button>
+        <Button colorScheme='green' onClick={getTranslation}>Translate</Button>
+      </HStack>
+      
       <p>{response}</p>
     </div>
   );

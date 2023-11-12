@@ -5,6 +5,7 @@ import { PlusSquareIcon, EditIcon } from '@chakra-ui/icons';
 import React, { useState, useEffect } from 'react';
 import Popup from './Popup';
 import Flashcard from './Flashcard';
+import Chat from './Chat';
 import './App.css';
 
 
@@ -27,7 +28,11 @@ function App() {
           <p>Learn Everything, Master Anything: Where Finance Meets Knowledge</p>
           <div className='instructions'>Start learning by highlighting text on your current website or clicking a deck below!</div>
           <Popup/>
+          <hr/>
           <Flashcard/>
+          <hr/>
+          <Chat/>
+          <hr/>
         </header>
       </div>
     </ChakraProvider>

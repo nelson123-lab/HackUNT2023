@@ -7,11 +7,13 @@
   background:#ffffff;
   /* border: 1px solid black; */
   font-family: 'Roboto';
+  align-items: center;
 }
 
 p{
   padding: 3%;
   font-size: 80%;
+  font-family: 'Roboto';
   justify-content: center;
 }
 
