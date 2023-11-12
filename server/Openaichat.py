@@ -105,48 +105,51 @@ def get_conversation_chain(vectorstore):
     )
     return conversation_chain
 
+
+
 # To handle the user input and response for continuous chat.
-if __name__ == "__main__":
-    url = "https://medium.com/@johnidouglasmarangon/how-to-summarize-text-with-openai-and-langchain-e038fc922af"
-    raw_text = webScrapper(url)
-    text_chunks = get_text_chunks(raw_text)
-    vectorstore = get_vectorstore(text_chunks)
-    conversation = get_conversation_chain(vectorstore)
 
-    while True:
-        user_question = input("What do you wanna know from the website? (Enter 'stop' to end the chat): ")
-        if user_question.lower() == "stop":
-            break
+url = "https://medium.com/@johnidouglasmarangon/how-to-summarize-text-with-openai-and-langchain-e038fc922af"
+raw_text = webScrapper(url)
+text_chunks = get_text_chunks(raw_text)
+vectorstore = get_vectorstore(text_chunks)
+conversation = get_conversation_chain(vectorstore)
 
-        response = conversation({'question': user_question})
-        chat_history = response['chat_history']
+while True:
+    user_question = input("What do you wanna know from the website? (Enter 'stop' to end the chat): ")
+    if user_question.lower() == "stop":
+        break
 
-        if len(chat_history) == 0:
-            print("I am not able to find enough information from the website. Let me search for the answer...")
+    response = conversation({'question': user_question})
+    chat_history = response['chat_history']
+
+    if len(chat_history) == 0:
+        print("I am not able to find enough information from the website. Let me search for the answer...")
+        
+        # Make the normal API call here and get the response
+        usermessages = {"question": user_question}  # Replace with the appropriate parameters for your API
+        
+        try:   
+            # Assuming the API response is in JSON format, you can extract the relevant information
+            response = openai.Completion.create(
+            engine='gpt-3.5-turbo',  # text-davinci-003
+            prompt = usermessages,
+            max_tokens=300,  # Set the maximum length of the response
+            n=1,  # Specify the number of responses to generate
+            stop=None)
+            api_answer = response.choices[0].text.strip()
+            print("Bot: " + api_answer)
             
-            # Make the normal API call here and get the response
-            usermessages = {"question": user_question}  # Replace with the appropriate parameters for your API
+            # Continue the chat with the API response
+            response = conversation({'question': api_answer})
+            chat_history = response['chat_history']
             
-            try:   
-                # Assuming the API response is in JSON format, you can extract the relevant information
-                response = openai.Completion.create(
-                engine='text-davinci-003',  # Specify the language model to use
-                prompt = usermessages,
-                max_tokens=300,  # Set the maximum length of the response
-                n=1,  # Specify the number of responses to generate
-                stop=None)
-                api_answer = response.choices[0].text.strip()
-                print("Bot: " + api_answer)
-                
-                # Continue the chat with the API response
-                response = conversation({'question': api_answer})
-                chat_history = response['chat_history']
-                
-            except requests.exceptions.RequestException as e:
-                print("Error occurred during the API call:", str(e))
+        except requests.exceptions.RequestException as e:
+            print("Error occurred during the API call:", str(e))
 
-        for i, message in enumerate(chat_history):
-            if i % 2 == 0:
-                print("User: " + message.content)
-            else:
-                print("Bot: " + message.content)
+    for i, message in enumerate(chat_history[-2:]):
+        if i % 2 == 0:
+            # print("User: " + message.content)
+            pass
+        else:
+            print("Bot: " + message.content)
