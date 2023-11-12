@@ -1,9 +1,11 @@
 import { ChakraProvider, Input } from '@chakra-ui/react';
 import { Button, Stack } from '@chakra-ui/react';
 import { PlusSquareIcon, EditIcon } from '@chakra-ui/icons';
-import React, { useState } from 'react';
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import Popup from './Popup';
 import './App.css';
+
+/* global chrome */
 
 function App() {
   const [deckNames, setDeckNames] = useState(['Deck 1']);
@@ -39,23 +41,10 @@ function App() {
     setNewDeckName('');
   };
   
-
-  const handleCreateNewDeck = () => {
-    // Handle creating a new deck (if needed)
-    // For now, you can leave it empty or add any specific logic
-  };
-
-  let messageURL;
-  useEffect(() => {
-    // Add event listener to listen for messages from the background script
-    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-      messageURL = message.currentURL
-    })});
-
-
   return (
     <ChakraProvider>
-      <div className="App">
+      <Popup/>
+          {/* <div className="App">
         <header className="App-header">
           <div className="appname">Money Matters</div>
           <p>Learn Everything, Master Anything: Where Finance Meets Knowledge</p>
@@ -103,8 +92,8 @@ function App() {
             </Button>
           </Stack>
         </header>
-      </div>
-    </ChakraProvider>
+      </div> */}
+</ChakraProvider>
   );
 }
 
