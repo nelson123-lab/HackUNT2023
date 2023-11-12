@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 from dotenv import load_dotenv
 from Text_summarization import Summarization
@@ -44,7 +44,7 @@ def webchat():
     return jsonify({"response": response})
 
 @app.route("/gptchat", methods =['POST'])
-def webchat():
+def gptchat():
     data = request.get_json()
     message = data.get('text')
     chat_app = ChatApp()
@@ -52,15 +52,16 @@ def webchat():
     assistant_response = chat_app.chat(message)
     response = assistant_response['content']
 
-    return jsonify({"response": "Automated Message from chat with document goes here"})
+    return jsonify({"response": response})
 
 # needs to be edited.
-@app.route("/text_to_speech", methods =['POST'])
+@app.route("/tts", methods =['POST'])
 def txtSpeech():
     data = request.get_json()
-    message = data.get('text')
+    message = data.get('para')
     T_T_speech(message)
-    return jsonify({"response": "Automated Message from chat with document goes here"})
+    audio_path = './read_aloud.mp3'
+    return send_file(audio_path, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(debug = True)
