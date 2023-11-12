@@ -1,3 +1,64 @@
+# from dotenv import load_dotenv
+# from langchain.text_splitter import CharacterTextSplitter
+# from langchain.embeddings import OpenAIEmbeddings
+# # FAISS runs locally saves the embeddings on the local machine.
+# from langchain.vectorstores import FAISS
+# from langchain.chat_models import ChatOpenAI
+# from langchain.memory import ConversationBufferMemory
+# from langchain.chains import ConversationalRetrievalChain
+# from web_scrapper import webScrapper
+
+# load_dotenv()
+# # Function to return chunks of data from the extracted pdf data.
+# def get_text_chunks(text):
+#     text_splitter = CharacterTextSplitter(
+#         separator="\n",
+#         chunk_size = 1000,
+#         chunk_overlap = 200,
+#         length_function=len
+#     )
+#     chunks = text_splitter.split_text(text)
+#     return chunks
+
+# # Function to get vector data from the text chunks.
+# def get_vectorstore(text_chunks):
+#     embeddings = OpenAIEmbeddings()
+#     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
+#     return vectorstore
+
+# # Function for the conversation chain.
+# def get_conversation_chain(vectorstore):
+#     llm = ChatOpenAI()
+#     memory = ConversationBufferMemory(
+#         memory_key='chat_history', return_messages=True)
+#     conversation_chain = ConversationalRetrievalChain.from_llm(
+#         llm=llm,
+#         retriever=vectorstore.as_retriever(),
+#         memory=memory
+#     )
+#     return conversation_chain
+
+# # To handle the user input and repsonse for continous chat.
+# if __name__ == "__main__":
+#     url = "https://medium.com/@johnidouglasmarangon/how-to-summarize-text-with-openai-and-langchain-e038fc922af"
+#     raw_text = webScrapper(url)
+#     text_chunks = get_text_chunks(raw_text)
+#     vectorstore = get_vectorstore(text_chunks)
+#     conversation = get_conversation_chain(vectorstore)
+
+#     while True:
+#         user_question = input("What do you wanna know from the website? (Enter 'stop' to end the chat): ")
+#         if user_question.lower() == "stop":
+#             break
+
+#         response = conversation({'question': user_question})
+#         chat_history = response['chat_history']
+
+#         for i, message in enumerate(chat_history):
+#             if i % 2 == 0:
+#                 print("User: " + message.content)
+#             else:
+#                 print("Bot: " + message.content)
 from dotenv import load_dotenv
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
@@ -6,16 +67,14 @@ from langchain.vectorstores import FAISS
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
-from langchain.llms import HuggingFaceHub
+from web_scrapper import webScrapper
+import requests
+import openai
+import os
 
-# Function to return extracted values of the pdf.
-def get_pdf_text(pdf_docs):
-    text = ""
-    for pdf in pdf_docs:
-        pdf_reader = PdfReader(pdf)
-        for page in pdf_reader.pages:
-            text += page.extract_text()
-    return text
+load_dotenv()
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Function to return chunks of data from the extracted pdf data.
 def get_text_chunks(text):
@@ -31,16 +90,12 @@ def get_text_chunks(text):
 # Function to get vector data from the text chunks.
 def get_vectorstore(text_chunks):
     embeddings = OpenAIEmbeddings()
-    # For free embeddings creation since OpenAIEmbeddings is paid service.
-    # embeddings = HuggingFaceInstructEmbeddings(model_name="hkunlp/instructor-xl")
     vectorstore = FAISS.from_texts(texts=text_chunks, embedding=embeddings)
     return vectorstore
 
 # Function for the conversation chain.
 def get_conversation_chain(vectorstore):
     llm = ChatOpenAI()
-    # llm = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":0.5, "max_length":512})
-
     memory = ConversationBufferMemory(
         memory_key='chat_history', return_messages=True)
     conversation_chain = ConversationalRetrievalChain.from_llm(
@@ -50,56 +105,48 @@ def get_conversation_chain(vectorstore):
     )
     return conversation_chain
 
-# To handle the user input and repsonse for continous chat.
-def handle_userinput(user_question):
-    response = st.session_state.conversation({'question': user_question})
-    st.session_state.chat_history = response['chat_history']
+# To handle the user input and response for continuous chat.
+if __name__ == "__main__":
+    url = "https://medium.com/@johnidouglasmarangon/how-to-summarize-text-with-openai-and-langchain-e038fc922af"
+    raw_text = webScrapper(url)
+    text_chunks = get_text_chunks(raw_text)
+    vectorstore = get_vectorstore(text_chunks)
+    conversation = get_conversation_chain(vectorstore)
 
-    for i, message in enumerate(st.session_state.chat_history):
-        if i % 2 == 0:
-            st.write(user_template.replace(
-                "{{MSG}}", message.content), unsafe_allow_html=True)
-        else:
-            st.write(bot_template.replace(
-                "{{MSG}}", message.content), unsafe_allow_html=True)
+    while True:
+        user_question = input("What do you wanna know from the website? (Enter 'stop' to end the chat): ")
+        if user_question.lower() == "stop":
+            break
 
+        response = conversation({'question': user_question})
+        chat_history = response['chat_history']
 
-def main():
-    load_dotenv()
-    st.set_page_config(page_title="JakeAI",
-                       page_icon="https://www.statefarm.com/content/dam/sf-library/en-us/secure/legacy/state-farm/SF_Logo_Red_Standard_Horzintal.png")
-    st.write(css, unsafe_allow_html=True)
+        if len(chat_history) == 0:
+            print("I am not able to find enough information from the website. Let me search for the answer...")
+            
+            # Make the normal API call here and get the response
+            usermessages = {"question": user_question}  # Replace with the appropriate parameters for your API
+            
+            try:   
+                # Assuming the API response is in JSON format, you can extract the relevant information
+                response = openai.Completion.create(
+                engine='text-davinci-003',  # Specify the language model to use
+                prompt = usermessages,
+                max_tokens=300,  # Set the maximum length of the response
+                n=1,  # Specify the number of responses to generate
+                stop=None)
+                api_answer = response.choices[0].text.strip()
+                print("Bot: " + api_answer)
+                
+                # Continue the chat with the API response
+                response = conversation({'question': api_answer})
+                chat_history = response['chat_history']
+                
+            except requests.exceptions.RequestException as e:
+                print("Error occurred during the API call:", str(e))
 
-    if "conversation" not in st.session_state:
-        st.session_state.conversation = None
-    if "chat_history" not in st.session_state:
-        st.session_state.chat_history = None
-
-    st.image('data\SF_Logo_Red_Standard_Horzintal.png')
-    st.header("Ask Jake!")
-    user_question = st.text_input("How can I assist yout today?")
-    if user_question:
-        handle_userinput(user_question)
-
-    with st.sidebar:
-        st.subheader("Your documents")
-        pdf_docs = st.file_uploader(
-            "Upload your PDFs here and click on 'Process'", accept_multiple_files=True)
-        if st.button("Process"):
-            with st.spinner("Processing"):
-                # get pdf text
-                raw_text = get_pdf_text(pdf_docs)
-
-                # get the text chunks
-                text_chunks = get_text_chunks(raw_text)
-
-                # create vector store
-                vectorstore = get_vectorstore(text_chunks)
-
-                # create conversation chain
-                st.session_state.conversation = get_conversation_chain(
-                    vectorstore)
-
-
-if __name__ == '__main__':
-    main()
+        for i, message in enumerate(chat_history):
+            if i % 2 == 0:
+                print("User: " + message.content)
+            else:
+                print("Bot: " + message.content)

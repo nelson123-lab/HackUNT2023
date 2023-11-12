@@ -1,13 +1,10 @@
-from googletrans import Translator
+from translate import Translator
 
-# Initialize the translator
-translator = Translator()
+def language_translation(text_to_translate, language):
+    # Initialize the translator
+    translator = Translator(to_lang = language)
 
-# Define the text you want to translate
-text_to_translate = "Hello, how are you?"
+    # Translate the text to the desired language (e.g., German)
+    translated_text = translator.translate(text_to_translate)
 
-# Translate the text to the desired language (e.g., German)
-translated_text = translator.translate(text_to_translate, dest='de')
-
-# Print the translated text
-print(translated_text.text)
+    return translated_text
