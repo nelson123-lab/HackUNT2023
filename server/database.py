@@ -1,7 +1,11 @@
 from pymongo import MongoClient
-
+from dotenv import load_dotenv
+import os
 # Replace <connection_string> with your actual connection string
-client = MongoClient("mongodb+srv://nelson123:<BD6tLMNkpkOkyUki>@cluster0.9khpcfr.mongodb.net/")
+
+load_dotenv()
+url = os.getenv("API_KEY")
+client = MongoClient(url)
 
 # Access the database
 db = client['mydictionary']
@@ -20,8 +24,10 @@ def get_dictionary():
         dictionary[doc['word']] = doc['definition']
     return dictionary
 
-# Example usage
 # add_word('example', 'a thing characteristic of its kind or illustrating a general rule')
 # add_word('software', 'the programs and other operating information used by a computer')
-# dictionary = get_dictionary()
+# add_word('computer', 'A device for computaton and creative work.')
+dictionary = get_dictionary()
 # print(dictionary)
+for key, value in dictionary.items():
+    print(key, value)
