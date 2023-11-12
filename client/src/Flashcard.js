@@ -47,14 +47,16 @@ const Flashcard = () => {
 
   return (
     <Box
-      maxW="md"
+      maxW="lg"
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
       p={6}
       bg="white"
       mt={8}
-      position="relative"
+      height="200px"
+      width="300px"
+      background="#FFFFEA"
     >
       <Text fontSize="xl" fontWeight="bold" mb={4}>
         </Text>
@@ -81,9 +83,9 @@ const Flashcard = () => {
         {/* Arrows */}
         <Flex
           justifyContent="space-between"
-          position="absolute"
           bottom="8px"
           width="100%"
+          height="100%"
           zIndex={1}
         >
           <IconButton icon={<ArrowBackIcon />} colorScheme="green" onClick={handlePrevCard} />

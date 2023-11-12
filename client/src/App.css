@@ -6,25 +6,40 @@
   height: 500px;
   background:#ffffff;
   /* border: 1px solid black; */
-  font-family: 'Roboto';
+  font-family: 'Inter';
   align-items: center;
 }
 
 p{
   padding: 3%;
   font-size: 80%;
-  font-family: 'Roboto';
+  font-family: 'Inter';
   justify-content: center;
+  text-align: center;
 }
 
 .instructions {
   padding: 3%;
+  font-family: 'Inter';
+  align-items: center;
+  font-weight: 500;
 }
+
 .appname {
-  padding-top: 7%;
   padding-left: 3%;
   font-size: 150%;
   font-weight: 550;
+  background-color: #3da46c;
+  color: white;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding: 3%;
+}
+
+h1 {
+  align-items: center;
 }
 
 .adddeck {
@@ -50,6 +65,7 @@ p{
   font-size: calc(10px + 2vmin);
   color: black;
   border: 5px;
+  align-items: center;
 }
 
 .App-link {

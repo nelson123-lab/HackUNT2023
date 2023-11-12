@@ -24,15 +24,16 @@ function App() {
     <ChakraProvider>
       <div className="App">
         <header className="App-header">
-          <div className="appname">Money Matters</div>
-          <p>Learn Everything, Master Anything: Where Finance Meets Knowledge</p>
-          <div className='instructions'>Start learning by highlighting text on your current website or clicking a deck below!</div>
+          <div className="appname">SimpliFin</div>
+          <p>Learn Everything, Master Anything: Finance at your Fingertips</p>
+          <div className='instructions'>Start learning by highlighting text on your current website, memorizing our flashcards, or chatting with our bot below!</div>
+          <br/><hr/>
           <Popup/>
-          <hr/>
+          <br/><hr/>
           <Flashcard/>
-          <hr/>
+          <br/><hr/>
           <Chat/>
-          <hr/>
+          <br/><hr/>
         </header>
       </div>
     </ChakraProvider>
