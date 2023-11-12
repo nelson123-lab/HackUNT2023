@@ -41,10 +41,23 @@ function App() {
     setNewDeckName('');
   };
   
+
+  const handleCreateNewDeck = () => {
+    // Handle creating a new deck (if needed)
+    // For now, you can leave it empty or add any specific logic
+  };
+
+  let messageURL;
+  useEffect(() => {
+    // Add event listener to listen for messages from the background script
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+      messageURL = message.currentURL
+    })});
+
+
   return (
     <ChakraProvider>
-      <Popup/>
-          {/* <div className="App">
+      <div className="App">
         <header className="App-header">
           <div className="appname">Money Matters</div>
           <p>Learn Everything, Master Anything: Where Finance Meets Knowledge</p>
@@ -92,8 +105,8 @@ function App() {
             </Button>
           </Stack>
         </header>
-      </div> */}
-</ChakraProvider>
+      </div>
+    </ChakraProvider>
   );
 }
 
