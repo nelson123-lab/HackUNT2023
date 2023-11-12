@@ -9,7 +9,11 @@ def word_meaning(word, Language = 'en'):
 
     # myobj = gTTS(text = word, lang = Language, slow=False)
     # myobj.save("pronounciation.mp3")
-    values = list(*word_meaning.values())
-    return values[0]
+    try:
+        values = list(*word_meaning.values())
+        return values[0].capitalize()
+    except:
+        return "No meaning found"
+        
 
-print(word_meaning("Attractive"))
+# print(word_meaning("Happy"))

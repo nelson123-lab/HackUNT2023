@@ -105,8 +105,6 @@ def get_conversation_chain(vectorstore):
     )
     return conversation_chain
 
-
-
 # To handle the user input and response for continuous chat.
 
 url = "https://medium.com/@johnidouglasmarangon/how-to-summarize-text-with-openai-and-langchain-e038fc922af"
