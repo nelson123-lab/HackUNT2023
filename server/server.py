@@ -7,7 +7,7 @@ from translator import language_translation
 from Chat_with_website import VectorizationURL, ChatWebsite
 from Chat_with_GPT import ChatApp
 from txt_to_speech import T_T_speech
-from database import add_word, get_dictionary
+#pythfrom database import add_word, get_dictionary
 
 app = Flask(__name__)
 CORS(app)
@@ -66,14 +66,18 @@ def txtSpeech():
 
 @app.route("/flashcards", methods=['GET'])
 def flashcards():
-    return(get_dictionary())
+    return([{"term":"Invest", "definition":"To take interest and participate in something"},
+            {"term":"Invest", "definition":"To take interest and participate in something"},
+            {"term":"Invest", "definition":"To take interest and participate in something"},
+            {"term":"Invest", "definition":"To take interest and participate in something"},
+            {"term":"Invest", "definition":"To take interest and participate in something"}])
 
-@app.route("/addcard", methods=['POST'])
+'''@app.route("/addcard", methods=['POST'])
 def addcard():
     data = request.get_json()
     word = data.get('word')
     definition = data.get('def')
     add_word(word, definition)
-
+'''
 if __name__ == "__main__":
     app.run(debug = True)
