@@ -31,5 +31,18 @@ def translate():
     language = data.get('lang')
     return jsonify({"response": language_translation(para, language)}) #return the summarize function here.
 
+@app.route("/webchat", methods =['POST'])
+def webchat():
+    data = request.get_json()
+    message = data.get('text')
+    url = data.get('webLink')
+    return jsonify({"response": "Automated Message from chat with document goes here"})
+
+@app.route("/gptchat", methods =['POST'])
+def webchat():
+    data = request.get_json()
+    message = data.get('text')
+    return jsonify({"response": "Automated Message from chat with document goes here"})
+
 if __name__ == "__main__":
     app.run(debug = True)
