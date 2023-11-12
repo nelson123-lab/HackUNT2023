@@ -24,9 +24,9 @@ class ChatApp:
 chat_app = ChatApp()
 
 # Start the conversation
-while True:
-    user_input = input("User: ")
-    if user_input.lower() == "stop":
-        break
-    assistant_response = chat_app.chat(user_input)
-    print("Assistant:", assistant_response['content'])
+#while True:
+ #   user_input = input("User: ")
+  #  if user_input.lower() == "stop":
+   #     break
+    #assistant_response = chat_app.chat(user_input)
+    #print("Assistant:", assistant_response['content'])
