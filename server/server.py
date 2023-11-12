@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from Text_summarization import Summarization
 from Word_meanings import word_meaning
 from translator import language_translation
+from Chat_with_website import chatWebsite
 
 app = Flask(__name__)
 CORS(app)
