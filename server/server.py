@@ -16,19 +16,20 @@ def members():
 def definition():
     data = request.get_json()
     user_word = data.get('word')
-    return jsonify({"response": "This is your word " + word_meaning(user_word)}) #return the summarize function here
+    return jsonify({"response": word_meaning(user_word)}) #return the summarize function here
 
 @app.route("/summarize", methods=['POST'])
 def summarize():
     data = request.get_json()
-    para = data.get('text')
+    para = data.get('para')
     return jsonify({"response": Summarization(para)}) #return the summarize function here.
 
 @app.route("/translate", methods=['POST'])
 def translate():
     data = request.get_json()
-    para = data.get('text')
-    return jsonify({"response": Summarization(para)}) #return the summarize function here.
+    para = data.get('para')
+    language = data.get('lang')
+    return jsonify({"response": language_translation(para, language)}) #return the summarize function here.
 
 if __name__ == "__main__":
     app.run(debug = True)
