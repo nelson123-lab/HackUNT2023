@@ -1,15 +1,19 @@
+
 {
   "manifest_version": 3,
-  "name":"simplify finance",
-  "description": "abc abc",
-  "version": "0.0.1",
+  "name": "Money Matters",
+  "version": "1.0",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.js"]
+    }
+  ],
   "action": {
     "default_popup": "index.html",
-    "default_title": "Open"
-  },
-  "permissions": ["scripting"],
-  "host_permissions": [
-    "http://*/",
-    "https://*/"
-  ]
+    "default_icon": {
+      "16": "icon16.png"
+    }
+  }
 }
