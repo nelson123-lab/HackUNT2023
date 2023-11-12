@@ -1,3 +1,4 @@
+/* global chrome */
 import { ChakraProvider, Input } from '@chakra-ui/react';
 import { Button, Stack } from '@chakra-ui/react';
 import { PlusSquareIcon, EditIcon } from '@chakra-ui/icons';
@@ -5,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import Popup from './Popup';
 import './App.css';
 
-/* global chrome */
+
 
 function App() {
   const [deckNames, setDeckNames] = useState(['Deck 1']);
@@ -61,6 +62,7 @@ function App() {
         <header className="App-header">
           <div className="appname">Money Matters</div>
           <p>Learn Everything, Master Anything: Where Finance Meets Knowledge</p>
+          <Popup/>
           <div className='instructions'>Start learning by highlighting text on your current website or clicking a deck below!</div>
           <Stack spacing={4} direction='column' align='center' padding='30px'>
             {deckNames.map((deckName, index) => (
