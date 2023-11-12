@@ -7,8 +7,6 @@ export default function Webchat (){
     const textRef = useRef();
     let url
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        console.log('Querying active tab:', tabs);
-        console.log(tabs[0].url)
         url = tabs[0].url
     })
     
@@ -17,8 +15,9 @@ export default function Webchat (){
         console.log("Chat with webpage called")
         let temp_response
         console.log(textRef.current.value)
+        console.log(url)
         temp_response = await axios.post('http://127.0.0.1:5000/webchat', {
-          text: textRef.current,
+          text: textRef.current.value,
           webLink: url
         })
         console.log(temp_response.data.response)

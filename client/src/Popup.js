@@ -110,7 +110,6 @@ const Popup = () => {
         <Button colorScheme='green' onClick={getDef}>{selectedText.length > 10 ? "Summarize" : "Lookup"}</Button>
         <Button colorScheme='green' onClick={getTranslation}>Translate</Button>
       </HStack>
-      
       <p>{response}<Button colorScheme='green'onClick={sendVoice}>Audio</Button>{audioFile && <audio autoPlay controls src={audioFile} />}</p>
     </div>
   );
