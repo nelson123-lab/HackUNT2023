@@ -1,9 +1,10 @@
 // src/Chat.js
 /* global chrome */
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
 import './App.css';
 import { Button, Tabs, TabPanels, TabPanel, Tab, TabList} from '@chakra-ui/react';
+import Webchat from './Webchat';
+import Gptchat from './Gptchat';
 
 const Chat = () => {
   return (
@@ -17,9 +18,11 @@ const Chat = () => {
         <TabPanels>
             <TabPanel>
             <p>run the code of the webscraper!</p>
+            <Webchat />
             </TabPanel>
             <TabPanel>
             <p>run the code of the gpt!</p>
+            <Gptchat />
             </TabPanel>
         </TabPanels>
     </Tabs>

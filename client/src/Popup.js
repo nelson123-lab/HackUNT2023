@@ -9,6 +9,8 @@ const Popup = () => {
   const [selectedText, setSelectedText] = useState('');
   const [response, setResponse] = useState('') 
   const [lang, setLang] = useState('')
+  const [audioFile, setAudioFile] = useState(null);
+  
   const handleSelection = () => {
     //test
     let tab1
@@ -89,6 +91,17 @@ const Popup = () => {
     console.log(temp_response.data.response)
     setResponse(temp_response.data.response)
   }
+
+  const sendVoice = async(e) => {
+    e.preventDefault()
+    console.log("Voice function called")
+    let temp_response
+    temp_response = await axios.post('http://127.0.0.1:5000/tts', {
+      para: response
+    })
+    const audioUrl = URL.createObjectURL(response.data);
+    setAudioFile(audioUrl);
+  }
   return (
     <Card padding="20px" background="#FFFFEA">
       <h1>Selected Text:</h1>
@@ -98,7 +111,7 @@ const Popup = () => {
         <Button colorScheme='green' onClick={getTranslation}>Translate</Button>
       </HStack>
       
-      <p>{response}</p>
+      <p>{response}<Button colorScheme='green'onClick={sendVoice}>Audio</Button>{audioFile && <audio autoPlay controls src={audioFile} />}</p>
     </Card>
   );
 };
