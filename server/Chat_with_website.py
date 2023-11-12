@@ -7,7 +7,6 @@ from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain
 from web_scrapper import webScrapper
-import requests
 import openai
 import os
 

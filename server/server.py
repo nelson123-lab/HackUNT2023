@@ -5,6 +5,8 @@ from Text_summarization import Summarization
 from Word_meanings import word_meaning
 from translator import language_translation
 from Chat_with_website import chatWebsite
+from Chat_with_GPT import ChatApp
+from txt_to_speech import T_T_speech
 
 app = Flask(__name__)
 CORS(app)
@@ -43,6 +45,19 @@ def webchat():
 def webchat():
     data = request.get_json()
     message = data.get('text')
+    chat_app = ChatApp()
+
+    assistant_response = chat_app.chat(message)
+    response = assistant_response['content']
+
+    return jsonify({"response": "Automated Message from chat with document goes here"})
+
+# needs to be edited.
+@app.route("/text_to_speech", methods =['POST'])
+def txtSpeech():
+    data = request.get_json()
+    message = data.get('text')
+    T_T_speech(message)
     return jsonify({"response": "Automated Message from chat with document goes here"})
 
 if __name__ == "__main__":
