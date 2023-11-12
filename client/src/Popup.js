@@ -60,7 +60,13 @@ const Popup = () => {
   const getDef = async(e) => {
     e.preventDefault()
     console.log("Get definition called")
-    let temp_response = await axios.post('http://localhost:5000/gpt', {
+    let temp_response
+    if (selectedText.length > 10){
+      temp_response = await axios.post('http://127.0.0.1:5000/summarize', {
+      para: selectedText
+    })
+    }
+    temp_response = await axios.post('http://127.0.0.1:5000/definition', {
       word: selectedText
     })
     console.log(temp_response)
@@ -70,7 +76,7 @@ const Popup = () => {
     <div style={{ padding: '20px' }}>
       <h1>Selected Text:</h1>
       <p>{selectedText}</p>
-      <button className="buttons" onClick={getDef}>Lookup</button>
+      <button className="buttons" onClick={getDef}>{selectedText.length > 10 ? "Summarize" : "Lookup"}</button>
       <p>{response}</p>
     </div>
   );
