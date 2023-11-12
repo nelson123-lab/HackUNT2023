@@ -52,7 +52,6 @@ const Flashcard = () => {
       borderRadius="lg"
       overflow="hidden"
       p={6}
-      boxShadow="lg"
       bg="white"
       mt={8}
       position="relative"

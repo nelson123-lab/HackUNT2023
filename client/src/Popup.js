@@ -3,10 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './App.css';
+import { Button, HStack} from '@chakra-ui/react';
 
 const Popup = () => {
   const [selectedText, setSelectedText] = useState('');
   const [response, setResponse] = useState('') 
+  const [lang, setLang] = useState('')
   const handleSelection = () => {
     //test
     let tab1
@@ -66,17 +68,36 @@ const Popup = () => {
       para: selectedText
     })
     }
-    temp_response = await axios.post('http://127.0.0.1:5000/definition', {
+    else{
+      temp_response = await axios.post('http://127.0.0.1:5000/definition', {
       word: selectedText
     })
-    console.log(temp_response)
-    setResponse(temp_response)
+    }
+    
+    console.log(temp_response.data.response)
+    setResponse(temp_response.data.response)
+  }
+
+  const getTranslation = async(e) => {
+    e.preventDefault()
+    console.log("Translate called")
+    let temp_response
+    temp_response = await axios.post('http://127.0.0.1:5000/translate', {
+      para: selectedText,
+      lang: "es"
+    })
+    console.log(temp_response.data.response)
+    setResponse(temp_response.data.response)
   }
   return (
     <div style={{ padding: '20px' }}>
       <h1>Selected Text:</h1>
       <p>{selectedText}</p>
-      <button className="buttons" onClick={getDef}>{selectedText.length > 10 ? "Summarize" : "Lookup"}</button>
+      <HStack align='center'>
+        <Button colorScheme='green' onClick={getDef}>{selectedText.length > 10 ? "Summarize" : "Lookup"}</Button>
+        <Button colorScheme='green' onClick={getTranslation}>Translate</Button>
+      </HStack>
+      
       <p>{response}</p>
     </div>
   );
