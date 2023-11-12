@@ -21,5 +21,12 @@ class ChatApp:
         self.messages.append({"role": "assistant", "content": response["choices"][0]["message"].content})
         return response["choices"][0]["message"]
     
-a = ChatApp()
-print(a.chat(input()))
+chat_app = ChatApp()
+
+# Start the conversation
+while True:
+    user_input = input("User: ")
+    if user_input.lower() == "stop":
+        break
+    assistant_response = chat_app.chat(user_input)
+    print("Assistant:", assistant_response['content'])

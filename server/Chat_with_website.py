@@ -66,5 +66,5 @@ def chatWebsite(url, user_question):
             else:
                 print("Bot: " + message.content)
 
-url = "https://medium.com/@johnidouglasmarangon/how-to-summarize-text-with-openai-and-langchain-e038fc922af"
-chatWebsite(url)
+# url = "https://medium.com/@johnidouglasmarangon/how-to-summarize-text-with-openai-and-langchain-e038fc922af"
+# chatWebsite(url, user_question= input())
