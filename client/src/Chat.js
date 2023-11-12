@@ -9,7 +9,7 @@ import Gptchat from './Gptchat';
 const Chat = () => {
   return (
     <div style={{ padding: '20px' }}>
-      <Tabs>
+      <Tabs colorScheme='green'>
         <TabList>
             <Tab>Chat with Website</Tab>
             <Tab>Chat with GPT</Tab>
@@ -17,11 +17,9 @@ const Chat = () => {
 
         <TabPanels>
             <TabPanel>
-            <p>run the code of the webscraper!</p>
             <Webchat />
             </TabPanel>
             <TabPanel>
-            <p>run the code of the gpt!</p>
             <Gptchat />
             </TabPanel>
         </TabPanels>

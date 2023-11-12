@@ -7,6 +7,7 @@ from translator import language_translation
 from Chat_with_website import VectorizationURL, ChatWebsite
 from Chat_with_GPT import ChatApp
 from txt_to_speech import T_T_speech
+from database import add_word, get_dictionary
 
 app = Flask(__name__)
 CORS(app)
@@ -62,6 +63,17 @@ def txtSpeech():
     T_T_speech(message)
     audio_path = './read_aloud.mp3'
     return send_file(audio_path, as_attachment=True)
+
+@app.route("/flashcards", methods=['GET'])
+def flashcards():
+    return(get_dictionary())
+
+@app.route("/addcard", methods=['POST'])
+def addcard():
+    data = request.get_json()
+    word = data.get('word')
+    definition = data.get('def')
+    add_word(word, definition)
 
 if __name__ == "__main__":
     app.run(debug = True)

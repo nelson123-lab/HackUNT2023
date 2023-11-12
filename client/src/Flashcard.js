@@ -3,14 +3,18 @@ import { Box, Text, Flex, IconButton } from '@chakra-ui/react';
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons';
 
 const Flashcard = () => {
-  const [flashcards] = useState([
-    { term: 'Term 1', definition: 'Definition 1' },
-    { term: 'Term 2', definition: 'Definition 2' },
-    { term: 'Term 3', definition: 'Definition 3' },
-  ]);
 
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [isFlipped, setIsFlipped] = useState(false);
+    const [flashcards, setFlashcards] = useState([]);
+    const [currentCardIndex, setCurrentCardIndex] = useState(0);
+    const [isFlipped, setIsFlipped] = useState(false);
+  
+    useEffect(() => {
+      // Fetch flashcards data from the server or local file
+      fetch('/path/to/flashcards.json') // Update the path accordingly
+        .then(response => response.json())
+        .then(data => setFlashcards(data))
+        .catch(error => console.error('Error fetching flashcards:', error));
+    }, []);
 
   const currentFlashcard = flashcards[currentCardIndex];
 
@@ -23,7 +27,6 @@ const Flashcard = () => {
       setIsFlipped(true);
     }
   };
-  
   
   
   
@@ -47,15 +50,18 @@ const Flashcard = () => {
 
   return (
     <Box
-      maxW="md"
+      maxW="lg"
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
       p={6}
       bg="white"
       mt={8}
-      position="relative"
+      height="200px"
+      width="300px"
+      background="#FFFFEA"
     >
+        <h1> Flashcards </h1>
       <Text fontSize="xl" fontWeight="bold" mb={4}>
         </Text>
       <Flex
@@ -81,9 +87,9 @@ const Flashcard = () => {
         {/* Arrows */}
         <Flex
           justifyContent="space-between"
-          position="absolute"
           bottom="8px"
           width="100%"
+          height="100%"
           zIndex={1}
         >
           <IconButton icon={<ArrowBackIcon />} colorScheme="green" onClick={handlePrevCard} />
