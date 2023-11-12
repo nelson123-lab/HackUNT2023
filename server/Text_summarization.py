@@ -42,8 +42,3 @@ def Summarization(text, openai_api_key = os.getenv("OPENAI_API_KEY")):
 
     summary = chain.run(text)
     return summary
-
-text = """
-I have had great viewing experiences using this app, but I find the user settings allowed on desktop are almost all either broken or next to impossible to find. One particular issue I found was that it would save none of my settings in the "Special:Preferences" area, nor would it allow me to publish my own common.js file. I've no clue if this stems from an issue in the app, wikipedia backend services, my phone, or just incompetence on my own part. My app is fully updated. Let me know, please.
-"""
-print(Summarization(text))
