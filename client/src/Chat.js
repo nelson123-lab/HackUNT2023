@@ -17,11 +17,9 @@ const Chat = () => {
 
         <TabPanels>
             <TabPanel>
-            <p>run the code of the webscraper!</p>
             <Webchat />
             </TabPanel>
             <TabPanel>
-            <p>run the code of the gpt!</p>
             <Gptchat />
             </TabPanel>
         </TabPanels>

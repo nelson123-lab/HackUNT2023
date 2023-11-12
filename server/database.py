@@ -21,7 +21,7 @@ def get_dictionary():
     return dictionary
 
 # Example usage
-add_word('example', 'a thing characteristic of its kind or illustrating a general rule')
-add_word('software', 'the programs and other operating information used by a computer')
-dictionary = get_dictionary()
-print(dictionary)
+# add_word('example', 'a thing characteristic of its kind or illustrating a general rule')
+# add_word('software', 'the programs and other operating information used by a computer')
+# dictionary = get_dictionary()
+# print(dictionary)
