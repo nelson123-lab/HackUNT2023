@@ -1,9 +1,11 @@
 from langchain.llms.openai import OpenAI
+from dotenv import load_dotenv
 # from langchain.docstore.document import Document
 from langchain.chains.summarize import load_summarize_chain
 
 llm = OpenAI(temperature=0, openai_api_key="YOUR_API_KEY")
 
+load_dotenv()
 texts = """
 In Natural Language Processing — NLP — text summarization is the process of taking large documents and producing shorter versions of those documents while still preserving their meaning.
 
