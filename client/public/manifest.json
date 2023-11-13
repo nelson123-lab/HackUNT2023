@@ -1,7 +1,7 @@
-
 {
   "manifest_version": 3,
-  "name": "Money Matters",
+  "name": "SimpliFin",
+  "description": "Learn Everything, Master Anything: Finance at your Fingertips",
   "version": "1.0",
   "permissions": ["activeTab", "storage", "scripting"],
   "content_scripts": [
