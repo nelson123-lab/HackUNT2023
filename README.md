@@ -1,5 +1,6 @@
-# HackUNT2023
-# SimpliFin Project Journey
+<div align="center"><img src="https://github.com/nelson123-lab/SimpliFin/blob/2dd388734ec9f7329eaf07e07c5e329fa857f465/client/public/icon16.png" width="900"/></div>
+
+# SimpliFin
 
 ## Inspiration
 The idea of SimpliFin stems from the recognition that finance, for many, is like trying to unravel a magician's card trick—confusing, with lots of terms up its sleeves. We noticed that people often feel like they're deciphering an ancient scroll when trying to understand financial jargon. The struggle is real! The complexity of financial terms often leads to confusion, making it difficult for individuals to grasp essential concepts. Recognizing this common struggle, our team was inspired to create a tool that empowers users to navigate the complexities of finance seamlessly.
@@ -18,3 +19,22 @@ We created a Chrome extension that helps make financial knowledge accessible to 
 
 ## Built With
 beautiful-soup, css, react, flask, langchain, node.js, openai, pydictionary, python
+
+## Usage
+
+- Fork the repository
+- Create a **.env** file in the same location as the **.gitignore** file and add your OPEN_AI_KEY = "YOUR_API_KEY".
+- Navigate to the client folder and run npm run build. This will install the dependencies in the client side. You should have the node.js installed in your computer.
+  ```python
+  npm run build
+  ```
+- Navigate to the server side and install the libraries from the requirements.txt file.
+  ```python
+  pip freeze > requirements.txt
+  ```
+- To run the chrome extension, open a new terminal click **Ctrl + shift + `** on the keyboard and use the command.
+  ```python
+  python run server.py
+  ```
+- Open the chrome and go to extensions Tab and go to load unpacked section and load the build file from the client.
+- Pin the chrome extension and start using.
